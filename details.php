@@ -1,19 +1,20 @@
 <?php
+    session_start();
     include('products.php');
     
     if (isset($_POST['confirm'])) {
-		$photo = $arrProduct[$_GET['name']]['photo1'];
- 		$name = $arrProduct[$_GET['name']]['name'];
-		$description = $arrProduct[$_GET['name']]['description'];
+		$photo = $arrProducts[$_GET['name']]['photo1'];
+ 		$name = $arrProducts[$_GET['name']]['name'];
+		$description = $arrProducts[$_GET['name']]['description'];
 
  		$Qty = $_POST['quantity'];
- 		$price =$arrProduct[$_GET['name']]['price'];
+ 		$price =$arrProducts[$_GET['name']]['price'];
 
  		$id = $_GET['name'];
         $size = $_POST['radSize'];
 
- 		$addQty = $_SESSION['Totalqty'] + $Qty;		
-		$_SESSION['Totalqty'] = $addQty;
+ 		$addQty = $_SESSION['totalqty'] + $Qty;		
+		$_SESSION['totalqty'] = $addQty;
 
 		if(isset($_SESSION['arrCart'])) {
 			$Cart = $_SESSION['arrCart'];
@@ -63,7 +64,7 @@
 	<div class="container">
 		<form method="post">	
 		    <h3 class="h3 text-left"><i class="fas fa-store"></i> Learn IT Easy Online Shop
-		    	<a href="" class="btn btn-primary float-right text-white">
+		    	<a href="cart.php" class="btn btn-primary float-right text-white">
 		    		<i class="fas fa-shopping-cart"></i> Cart <span class="badge badge-light">
 		    			<?php if (empty($_SESSION['totalqty'])) {
 		    				echo 0;
