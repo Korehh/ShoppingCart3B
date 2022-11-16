@@ -49,13 +49,15 @@
             <div class="col-md-4 col-sm-6">
                 <div class="product-grid2">
                     <div class="product-image2">
+                       
                             <img class="pic-1" height="60%" src="img/<?php echo $arrCartDelete[$keyID]['photo'];?>">
                             <img class="pic-2" height="60%" src="img/<?php echo $arrCartDelete[$keyID]['photo2'];?>">
                     </div>
                 </div>
             </div>
             <div class="col-md-8 col-sm-6">
-                <h3><?php echo $arrCartDelete[$keyID]['name'];?></h3>
+                 <!-- display product name and price -->
+                <h3><?php echo $arrCartDelete[$keyID]['name'];?> <span class="pricebg"><?php echo " ₱ ".$arrCartDelete[$keyID]['price'];?></span></h3>
                 <p><?php echo $arrCartDelete[$keyID]['description'];?></p>
                 
                 <hr>

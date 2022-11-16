@@ -4,10 +4,10 @@
     
     if (isset($_POST['confirm'])) {
 		$photo = $arrProducts[$_GET['name']]['photo1'];
-        $photo2 =$arrProducts[$_GET['name']]['photo2'];
+        $photo2 = $arrProducts[$_GET['name']]['photo2'];
         $description = $arrProducts[$_GET['name']]['description'];
  		$name = $arrProducts[$_GET['name']]['name'];
-        $price =$arrProducts[$_GET['name']]['price'];
+        $price = $arrProducts[$_GET['name']]['price'];
 		
  		$Qty = $_POST['quantity'];
         $size = $_POST['radSize'];
@@ -86,7 +86,9 @@
 		            </div>
 		        </div>
 		        <div class="col-md-8 col-sm-6">
-		        	<h3><?php echo $arrProducts[$_GET['name']]['name'];?></h3>
+                    <!-- display product name and price -->
+		        	<h3><?php echo $arrProducts[$_GET['name']]['name'];?> <span class="pricebg"><?php echo " ₱ ".$arrProducts[$_GET['name']]['price'];?></span></h3>
+                    
 		        	<p><?php echo $arrProducts[$_GET['name']]['description'];?></p>
 		        	
 		        	<hr>

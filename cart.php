@@ -48,81 +48,110 @@
 		    		</span>
 			</a>
 		</h3>
-	<table id="cart" class="table table-hover table-condensed">
+	<table id="cart" class="table table-hover table-condensed table">
 		<thead>
 			<tr>
-			    <th style="width:50%">Product</th>
-				<th style="width:5%">Size</th>
-				<th style="width:10%">Price</th>
-				<th style="width:10%">Quantity</th>
-				<th style="width:15%" class="text-center">Total</th>
+			    <th style="width:40%">Product</th>
+				<th style="width:5%" class="space">Size</th>
+                <th style="width:15%" class="space">Quantity</th>
+				<th style="width:15%" class="space">Price</th>
+				<th style="width:15%" class="space">Total</th>
 				<th style="width:5%"></th>
 			</tr>
 		</thead>
 			<tbody>
-				<?php $i=0;
+				<?php 
+                    $i=0;
 					if (empty($_SESSION['arrCart'])) {
 				?>
 				<tr>
-					<td>Please Add to Cart Something in Order to Checkout.</td>
+					<td colspan="12">Cart is still Empty.</td>
 				</tr>
-					</tbody>
-					<tfoot><td><a href="index.php" class="btn btn-danger"><i class="fa fa-angle-left"></i> Continue Shopping</a></td></tfoot>
-				<?php 
-					}else{
-						$arrCart = $_SESSION['arrCart'];
-						foreach ($arrCart as $key => $value):
-				?>
-				<?php 
-                    ++$i;
-                ?>	
-				<tr>
-					<td data-th="Product">
-						<div class="row">
-							<div class="col-sm-3 hidden-xs"><img src="img/<?php echo $value['photo'];?>" alt="..." style="width:60%" class="img-responsive"/></div>
-								<div class="col-sm-9">
-									<h4 class="nomargin"><?php echo $value['name'];?></h4>
-							</div>
-						</div>
-					</td>
-					<td data-th="size"><?php echo $value['size']; ?></td>
-					<td data-th="Price">₱ <?php echo $value['price'] ;?></td>
+			</tbody>
+                <table>
+                    <td>
+                        <a href="index.php" class="btn btn-danger"><i class="fa-solid fa-bag-shopping"></i> Continue Shopping</a>
+                    </td>
+                </table>
+            <?php 
+                }else{
+                    $arrCart = $_SESSION['arrCart'];
+                    foreach ($arrCart as $key => $value):
+            ?>
+            <?php 
+                ++$i;
+            ?>	
+            <tr>
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-3 hidden-xs"><img src="img/<?php echo $value['photo'];?>" alt="..." style="width:60%" class="img-responsive"/></div>
+                            <div class="col-sm-9">
+                                <h4 class="nomargin"><?php echo $value['name'];?></h4>
+                        </div>
+                    </div>
+                </td>
+                <!-- display size at cart -->
+                <td data-th="size" class="space"><?php echo $value['size']; ?></td>
+                
+                <!-- display qty at cart -->
+                <td data-th="Quantity">
+                    <input type="number" name = "<?php echo'qty'.$i;?>" class="form-control text-center" min="1" max="100" value="<?php echo $value['quantity']?>">
+                </td>
+                <!-- display price at cart -->
+                <td data-th="Price" class="space">₱ <?php echo number_format($value['price'], 2) ;?></td>
+                <!-- display total -->
+                <td data-th="Subtotal" class="text-center">₱ <?php echo number_format($value['quantity'] * $value['price'], 2);?></td>
+                <!-- delete button -->
+                <td class="actions" data-th="">   
+                    <a type="submit" href="remove-confirm.php?deleteID=<?php echo $key?>" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-trash"></i></a>								
+                </td>
+            </tr>
 
-					<td data-th="Quantity">
-						<input type="number" name = "<?php echo'qty'.$i;?>" class="form-control text-center" min="1" max="100" value="<?php echo $value['quantity']?>">
-					</td>
-					<td data-th="Subtotal" class="text-center">₱ <?php echo number_format($value['quantity'] * $value['price'], 2);?></td>
+            <?php 
+                $sum += $value['quantity'];
 
-					<td class="actions" data-th="">
-						<a type="submit" href="remove-confirm.php?deleteID=<?php echo $key?>" class="btn btn-danger btn-sm text-white"><i class="fa fa-trash-o"></i></a>								
-					</td>
-				</tr>
+                $total += $value['quantity'] * $value['price'];
 
-				<?php 
-					$sum += $value['quantity'];
-
-					$total += $value['quantity'] * $value['price'];
-
-					$_SESSION['totalqty'] = $sum;
-				?>
-					<?php endforeach;?>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td>
-							<a href="index.php" class="btn btn-danger"><i class="fa fa-angle-left"></i> Continue Shopping</a> 
-							<button type="submit" name="update" class="btn btn-success"><i class="fa fa-refresh"></i> Update Cart</button>
-					</td>
-						<td colspan="2" class="hidden-xs"></td>
-						<td><strong>Total: <?php echo $sum;  ?></strong></td>
-						<td class="hidden-xs text-center"><strong>Total:₱ <?php echo number_format($total, 2);?></strong></td>
-						<td> <button type="submit" name="checkout" class="btn btn-primary btn-block"> Checkout <i class="fa fa-angle-right"></i></button></td>
-					</tr>
-				</tfoot>
-			<?php } ?>
-	</table>
-		</div>
-	</form>
+                $_SESSION['totalqty'] = $sum;
+            ?>
+                <?php endforeach;?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    
+                    <th style="width:40%"></th>
+                    <th style="width:5%" class="space">Total: </th>
+                    <th style="width:10% center" class="space"><?php echo $sum;?></th>
+                    <th style="width:10% center" class="space">----</th>
+                    <th style="width:15%" class="space">₱ <?php echo number_format($total, 2);?></th>
+                    <th style="width:10% center" class="space">----</th>
+                    
+                </tr>
+                <table>
+                <tr>
+                    <td>
+                        <table style="width:200px">
+                            <td>
+                                <tr>
+                                    <a href="index.php" class="btn btn-danger button1"><i class="fa-solid fa-bag-shopping"></i> Continue Shopping</a> 
+                                    <button type="submit" name="update" class="btn btn-success button1"><i class="fa-solid fa-pen-to-square"></i> Update Cart</button>
+                                    <button type="submit" name="checkout" class="btn btn-primary button1"> <i class="fa-sharp fa-solid fa-check-to-slot"></i> Checkout</button>
+                                </tr>
+                                </td>
+                        </table>
+                    </td>
+                </tr>
+                </table>
+                
+                
+                
+                
+            </tfoot>
+            
+        <?php } ?>
+    </table>
+    </div>
+</form>
 
     
 
