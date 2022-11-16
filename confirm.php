@@ -1,3 +1,10 @@
+<?php
+    session_start();
+	if (isset($_POST['cartb'])) {
+		header('location: cart.php');
+
+	}
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -15,7 +22,7 @@
 <div class="container">
 		<form method="post">	
 		    <h3 class="h3 text-left"><i class="fas fa-store"></i> Learn IT Easy Online Shop
-		    	<a href="" class="btn btn-primary float-right text-white">
+		    	<a href="cart.php" class="btn btn-primary float-right text-white">
 		    		<i class="fas fa-shopping-cart"></i> Cart <span class="badge badge-light">
 		    			<?php if (empty($_SESSION['totalqty'])) {
 		    				echo 0;
@@ -31,7 +38,7 @@
 		    <div class="row">
 		        <div class="col-sm-12">
 		        	<h3>Product Successfully Added to the Cart, what do you want to do next?</h3>
-		        	<button type="submit" name="btncart" class="btn btn-lg button"><i class="fa-solid fa-cart-shopping"></i> View Cart</button>
+		        	<button type="submit" name="cartb" class="btn btn-lg button"><i class="fa-solid fa-cart-shopping"></i> View Cart</button>
 		        	<a href="index.php" class="btn btn-danger btn-lg text-white"><i class="fa-solid fa-bag-shopping"></i> Continue Shopping</a>
 		        </div> 
 		    </div>

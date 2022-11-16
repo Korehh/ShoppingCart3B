@@ -1,4 +1,5 @@
 <?php
+	session_start();
     include('products.php');	
 ?>
 <!DOCTYPE html>
@@ -18,7 +19,7 @@
     <br>
     <br>
 	    <h1 class="h1 text-left"><i class="fas fa-store"></i> Learn IT Easy Online Shop
-	    	<a href="" class="btn btn-primary float-right text-white">
+	    	<a href="cart.php" class="btn btn-primary float-right text-white">
 	    		<i class="fas fa-shopping-cart"></i> Cart <span class="badge badge-light">
 				<?php 
 						if (empty($_SESSION['totalqty'])) {   //display 0 
