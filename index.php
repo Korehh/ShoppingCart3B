@@ -20,6 +20,14 @@
 	    <h1 class="h1 text-left"><i class="fas fa-store"></i> Learn IT Easy Online Shop
 	    	<a href="" class="btn btn-primary float-right text-white">
 	    		<i class="fas fa-shopping-cart"></i> Cart <span class="badge badge-light">
+				<?php 
+						if (empty($_SESSION['totalqty'])) {   //display 0 
+		    				echo 0;
+		    			}	
+		    			else{
+		    					echo $_SESSION['totalqty'];
+		    				}
+				?>
 	    			
 	    		</span>
 			</a>
@@ -35,11 +43,11 @@
 	                        <img class="pic-1" src="img/<?php echo $Product['photo1'];?>">
 	                        <img class="pic-2" src="img/<?php echo $Product['photo2'];?>">
 	                    </a>
-	                    <a class="add-to-cart" href=""><i class="fa-solid fa-cart-shopping"></i> Add to cart</a>
+	                    <a class="add-to-cart" href="details.php?name=<?php echo $arrProduct?>"><i class="fa-solid fa-cart-shopping"></i> Add to cart</a>
 	                </div>
                     <!-- Product Prices -->	
 	                <div class="product-content">
-	                    <h3 class="title"><a href=""><?php echo $Product['name'];?></a>
+	                    <h3 class="title"><?php echo $Product['name'];?>
 	                    	<span class="price badge text-white"><?php echo " ₱ ".$Product['price'];?></span>
 	                    </h3>
 	                </div>

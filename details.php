@@ -1,10 +1,58 @@
 <?php
-    include('products.php');	
+    include('products.php');
+    
+    if (isset($_POST['confirm'])) {
+		$photo = $arrProduct[$_GET['name']]['photo1'];
+ 		$name = $arrProduct[$_GET['name']]['name'];
+		$description = $arrProduct[$_GET['name']]['description'];
+
+ 		$Qty = $_POST['quantity'];
+ 		$price =$arrProduct[$_GET['name']]['price'];
+
+ 		$id = $_GET['name'];
+        $size = $_POST['radSize'];
+
+ 		$addQty = $_SESSION['Totalqty'] + $Qty;		
+		$_SESSION['Totalqty'] = $addQty;
+
+		if(isset($_SESSION['arrCart'])) {
+			$Cart = $_SESSION['arrCart'];
+			$CartQty = 0;
+			$sizeKey = 0;
+			foreach ($Cart as $key => $value) {
+				if ($Cart[$key]['name']==$name && $Cart[$key]['size']==$size) {
+					$CartQty = 1;
+					$sizeKey = $key;
+					break;
+				} else {
+					$CartQty = 0;
+				}
+			}
+
+			if ($CartQty == 1) {
+				foreach ($Cart as $keyAdd => $valueAdd) {
+				$Cart[$sizeKey]['quantity'] = $Cart[$sizeKey]['quantity'] + $Qty;
+				 $_SESSION['arrCart'] = $Cart;
+				 header('location: confirm.php');
+				 break;
+				} 
+			}else{
+				$addArrcart = ['name'=>''.$name, 'quantity'=>''.$Qty, 'size'=>''.$size, 'photo'=>''.$photo, 'price'=>''.$price, 'id'=>''.$id];
+			 	$_SESSION['arrCart'][]= $addArrcart;
+			 	header('location: confirm.php');
+			}
+
+		}else{	
+			$addArrcart = ['name'=>''.$name, 'quantity'=>''.$Qty, 'size'=>''.$size, 'photo'=>''.$photo, 'price'=>''.$price, 'id'=>''.$id];
+			$_SESSION['arrCart'][]= $addArrcart;
+			header('location: confirm.php');
+		}
+	}
 ?>
 <!--  I created a separate file for $arrProducts -->
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/shopping-grid-style.css">
   <link rel="stylesheet" href="css/cart.css">
@@ -17,11 +65,11 @@
 		    <h3 class="h3 text-left"><i class="fas fa-store"></i> Learn IT Easy Online Shop
 		    	<a href="" class="btn btn-primary float-right text-white">
 		    		<i class="fas fa-shopping-cart"></i> Cart <span class="badge badge-light">
-		    			<?php if (empty($_SESSION['Totalqty'])) {
+		    			<?php if (empty($_SESSION['totalqty'])) {
 		    				echo 0;
 		    			}	
 		    				else{
-		    					echo $_SESSION['Totalqty'];
+		    					echo $_SESSION['totalqty'];
 		    				}?>
 		    		</span>
 				</a>
@@ -32,8 +80,8 @@
 		        <div class="col-md-4 col-sm-6">
 		            <div class="product-grid2">
 		                <div class="product-image2">
-		                        <img class="pic-1" height="60%" src="img/<?php echo $arrProducts[$_GET['name']]['photo1'];?>">
-		                        <img class="pic-2" height="60%" src="img/<?php echo $arrProducts[$_GET['name']]['photo2'];?>">
+		                        <img class="pic-1" height="70%" src="img/<?php echo $arrProducts[$_GET['name']]['photo1'];?>">
+		                        <img class="pic-2" height="70%" src="img/<?php echo $arrProducts[$_GET['name']]['photo2'];?>">
 		                </div>
 		            </div>
 		        </div>
