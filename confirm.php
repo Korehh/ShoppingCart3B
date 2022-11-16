@@ -1,6 +1,7 @@
 <?php
     session_start();
 	if (isset($_POST['cartb'])) {
+        //session_destroy();
 		header('location: cart.php');
 
 	}

@@ -4,13 +4,12 @@
     
     if (isset($_POST['confirm'])) {
 		$photo = $arrProducts[$_GET['name']]['photo1'];
+        $photo2 =$arrProducts[$_GET['name']]['photo2'];
+        $description = $arrProducts[$_GET['name']]['description'];
  		$name = $arrProducts[$_GET['name']]['name'];
-		$description = $arrProducts[$_GET['name']]['description'];
-
+        $price =$arrProducts[$_GET['name']]['price'];
+		
  		$Qty = $_POST['quantity'];
- 		$price =$arrProducts[$_GET['name']]['price'];
-
- 		$id = $_GET['name'];
         $size = $_POST['radSize'];
 
  		$addQty = $_SESSION['totalqty'] + $Qty;		
@@ -38,13 +37,13 @@
 				 break;
 				} 
 			}else{
-				$addArrcart = ['name'=>''.$name, 'quantity'=>''.$Qty, 'size'=>''.$size, 'photo'=>''.$photo, 'price'=>''.$price, 'id'=>''.$id];
+				$addArrcart = ['name'=>''.$name, 'quantity'=>''.$Qty, 'size'=>''.$size, 'photo'=>''.$photo, 'price'=>''.$price, 'photo2'=>''.$photo2, 'description'=>''.$description];
 			 	$_SESSION['arrCart'][]= $addArrcart;
 			 	header('location: confirm.php');
 			}
 
 		}else{	
-			$addArrcart = ['name'=>''.$name, 'quantity'=>''.$Qty, 'size'=>''.$size, 'photo'=>''.$photo, 'price'=>''.$price, 'id'=>''.$id];
+			$addArrcart = ['name'=>''.$name, 'quantity'=>''.$Qty, 'size'=>''.$size, 'photo'=>''.$photo, 'price'=>''.$price, 'photo2'=>''.$photo2, 'description'=>''.$description];
 			$_SESSION['arrCart'][]= $addArrcart;
 			header('location: confirm.php');
 		}
